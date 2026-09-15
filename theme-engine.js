@@ -531,31 +531,23 @@
 
           ctx.fillStyle = '#1e3a1e';
           ctx.beginPath();
-          ctx.ellipse(-c.length * 0.38, -c.length * 0.22, c.length * 0.18, c.length * 0.09, 0.4, 0, Math.PI * 2);
-          ctx.ellipse(-c.length * 0.38, c.length * 0.22, c.length * 0.18, c.length * 0.09, -0.4, 0, Math.PI * 2);
+          [-1, 1].forEach(side => {
+            ctx.ellipse(-c.length * 0.38, c.length * 0.22 * side, c.length * 0.18, c.length * 0.09, -0.4 * side, 0, Math.PI * 2);
+          });
           ctx.fill();
 
-          ctx.save();
-          ctx.translate(c.length * 0.12, -c.length * 0.18);
-          ctx.rotate(c.flipperAngle);
-          ctx.fillStyle = '#2d5a27';
-          ctx.beginPath();
-          ctx.moveTo(0, 0);
-          ctx.quadraticCurveTo(c.length * 0.25, -c.length * 0.48, c.length * 0.42, -c.length * 0.38);
-          ctx.quadraticCurveTo(c.length * 0.28, -c.length * 0.1, 0, 0);
-          ctx.fill();
-          ctx.restore();
-
-          ctx.save();
-          ctx.translate(c.length * 0.12, c.length * 0.18);
-          ctx.rotate(-c.flipperAngle);
-          ctx.fillStyle = '#2d5a27';
-          ctx.beginPath();
-          ctx.moveTo(0, 0);
-          ctx.quadraticCurveTo(c.length * 0.25, c.length * 0.48, c.length * 0.42, c.length * 0.38);
-          ctx.quadraticCurveTo(c.length * 0.28, c.length * 0.1, 0, 0);
-          ctx.fill();
-          ctx.restore();
+          [-1, 1].forEach(side => {
+            ctx.save();
+            ctx.translate(c.length * 0.12, c.length * 0.18 * side);
+            ctx.rotate(-c.flipperAngle * side);
+            ctx.fillStyle = '#2d5a27';
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.quadraticCurveTo(c.length * 0.25, c.length * 0.48 * side, c.length * 0.42, c.length * 0.38 * side);
+            ctx.quadraticCurveTo(c.length * 0.28, c.length * 0.1 * side, 0, 0);
+            ctx.fill();
+            ctx.restore();
+          });
 
           const shellGrad = ctx.createRadialGradient(0, 0, 4, 0, 0, c.length * 0.45);
           shellGrad.addColorStop(0, '#854d0e');
